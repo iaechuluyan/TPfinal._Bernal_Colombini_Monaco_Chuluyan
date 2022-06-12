@@ -1,0 +1,2 @@
+# TPfinal._Bernal_Colombini_Monaco_Chuluyan
+Trabajo practico final_Pensamiento computacional.2022
