@@ -1,14 +1,14 @@
 from notes import notes_mapping
 
-def music_sheet (file):
+def music_sheet (file: str) -> list:
     '''
     Returns a list of lists with the starting time, the frequency and the lasting time of all the notes from
     the sheet file.
 
     Parameters
     ----------
-        file : file
-
+        file : str
+            The name of the file.
     Returns 
     -------
         line_info : list
@@ -22,7 +22,7 @@ def music_sheet (file):
             if info[0].startswith('.'):
                 starts = 0.5
             else:
-                starts = int(info[0])
+                starts = float(info[0])
             
             note = get_frequency(info[1])
 
@@ -36,7 +36,7 @@ def music_sheet (file):
     return line_info
 
 
-def get_frequency (note):
+def get_frequency (note: str) -> int:
     '''
     Returns the frequency of a given note by searching it on a list of tuples.
 
@@ -52,10 +52,6 @@ def get_frequency (note):
     '''
     for tuple in notes_mapping:
         if note == tuple[0]:
-            return tuple[0]
+            return tuple[1]
         else:
             continue
-
-def sorting():
-
-
