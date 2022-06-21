@@ -19,7 +19,10 @@ def music_sheet (file):
     line_info = []
     with open (file, 'r') as f:
         for line in f:
+            line.strip('\n')
             info = line.split(' ')
+            print(info)
+            print('0: ', info[0], '1: ', info[1], '2: ', info[2])
             if info[0].startswith('.'):
                 starts = 0.5
             else:
@@ -31,7 +34,7 @@ def music_sheet (file):
                 duration = 0.5
             else:
                 duration = int(info[2])
-
+            print('arrived')
             line_info.append([starts, note, duration])
 
     
@@ -55,7 +58,7 @@ def get_frequency (note):
     '''
     for tuple in notes_mapping:
         if note == tuple[0]:
-            return tuple[0]
+            return tuple[1]
         else:
             continue
 
@@ -76,7 +79,8 @@ def harmonics_info (file):
 
         sorting_harmonics(harmonic_info)
 
-           
+music_sheet_info =  music_sheet ('example.txt')  
+print(music_sheet_info) 
 
 def sorting_harmonics(harmonics):
     if len(harmonics) > 1:
@@ -111,5 +115,5 @@ def sorting_harmonics(harmonics):
 
     return harmonics
 
-def sorting_notes()
 
+#sort de las notas, algoritmo para añadirlas
