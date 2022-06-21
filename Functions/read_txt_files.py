@@ -1,6 +1,8 @@
 from re import L
 from notes import notes_mapping
 
+
+
 def music_sheet (file):
     '''
     Returns a list of lists with the starting time, the frequency and the lasting time of all the notes from
@@ -74,13 +76,17 @@ def harmonics_info (file):
                 i+=1
             elif i >0 and i < len(length) - 3:
                 harmonic_info.append(line.split(' '))
+    
             else:
                 A_S_D.append(line.split(' '))
 
         sorting_harmonics(harmonic_info)
+    
+    print(harmonics_info)
+    return harmonics_info
 
 music_sheet_info =  music_sheet ('example.txt')  
-print(music_sheet_info) 
+harmonics_info = (harmonics_info('piano.txt'))
 
 def sorting_harmonics(harmonics):
     if len(harmonics) > 1:
@@ -114,6 +120,8 @@ def sorting_harmonics(harmonics):
             k += 1
 
     return harmonics
+
+
 
 
 #sort de las notas, algoritmo para añadirlas
