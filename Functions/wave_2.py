@@ -42,6 +42,8 @@ class sintetizador:
         return str(self.i)
 
 def create_sine_each_note ():
+    """ Create a sine wave for each note in the music sheet and return a list of sine waves. 
+    """
     global s_audio
     i = 0
     for note in music_sheet_info:
@@ -55,6 +57,10 @@ def create_sine_each_note ():
 #modularización...
 
 def writing_wave (s_audio):
+    """ Write the sine waves to a wave file. 
+    The wave file is called 'sine_waves.wav'. 
+    """
+
     s_audio = s_audio.tobytes()
     with wave.open('final.wav', 'w') as w:
         w.setnchannels(1)
