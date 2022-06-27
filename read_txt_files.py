@@ -65,30 +65,63 @@ def get_frequency (note):
             continue
 
 def harmonics_info (file):
+    '''
+    Returns two lists, one with the information of each harmonic read in a file and another one with
+    the information of which functions to use (along with it's arguments) for attack, sustain, and decay.
+
+    Parameters
+    ----------
+    file : txt file
+        file containing the harmonics.
+
+    Returns
+    -------
+        Two lists.
+    
+    '''
     with open(file, 'r') as f:
         i = 0
-        length = f.readlines()
+        lines = f.readlines()
+        length = len(lines)
         harmonic_info = []
         A_S_D = []
-        while i < len(length):
-            line = f.readline()
+
+        while i < length:
             if i == 0:
                 i+=1
-            elif i >0 and i < len(length) - 3:
-                harmonic_info.append(line.split(' '))
-    
+            elif i >0 and i < length - 3:
+                lines[i] = lines[i][:-1]
+                harmonic_info.append(lines[i].split(' '))
+                i+=1
+            elif i == length -1:
+                A_S_D.append(lines[i].split(' '))
+                i+=1
             else:
-                A_S_D.append(line.split(' '))
+                lines[i] = lines[i][:-1]
+                A_S_D.append(lines[i].split(' '))
+                i+=1
 
-        sorting_harmonics(harmonic_info)
+        harmonics_info= sorting_harmonics(harmonic_info)
+
+    tuqui = [harmonics_info, A_S_D]
     
-    print(harmonics_info)
-    return harmonics_info
+    return tuqui
 
-music_sheet_info =  music_sheet ('example.txt')  
-harmonics_info = (harmonics_info('piano.txt'))
 
 def sorting_harmonics(harmonics):
+    '''
+    Orders the list of harmonics.
+
+    Parameters
+    ----------
+    harmonics : list
+        Contains the harmonics' information.
+
+    Returns
+    -------
+        The harmonics' list ordered.
+    
+    '''
     if len(harmonics) > 1:
         r = len(harmonics) // 2
         L = harmonics[:r]
@@ -122,6 +155,11 @@ def sorting_harmonics(harmonics):
     return harmonics
 
 
+music_sheet_info =  music_sheet ('ex.txt')  
+harmonics_info, modulation_info = harmonics_info('new.txt')
+print(harmonics_info)
 
 
-#sort de las notas, algoritmo para añadirlas
+#tests? cómo
+#sort de las notas, necesario?
+
