@@ -27,10 +27,8 @@ class process:
         self.sine = sum([self.sine, sin.get_data()])
 
 
-    def modularizar (self, frate):
+    def modularizar (self, frate): 
         M = np.zeros(self.len)
-
-        #self.duration - self.start
 
         note_duration = self.duration-self.start
 
@@ -42,19 +40,27 @@ class process:
         else:
             sustain_step = (note_duration)*frate - decay_step - attack_step
 
+
+
+        #del cero hasta lo que duran, sino, pruebo del cero al uno?, mm no, no?
         attack_time = np.linspace(0, ((note_duration)*float(modulation_info[0][1])), attack_step)  
         sustain_time = np.linspace((note_duration)*float(modulation_info[0][1]), self.duration - (self.duration*float(modulation_info[2][1])), sustain_step)
         decay_time = np.linspace((note_duration) - ((note_duration)*float(modulation_info[2][1])), self.duration, decay_step)
 
+
+
+
         #attack
         A_total_time = (note_duration)*float(modulation_info[0][1])
         A = Attack.func_linear(attack_time, A_total_time)
-        #A= Attack.quartsin(self, attack_time, A_total_time)
         for a in range(0,len(A)):
             M[a] = A[a]
 
         #sustain
-        S = Sustain.func_constant(sustain_time)
+        S_total_time = note_duration - (note_duration)*float(modulation_info[0][1]) - (note_duration)*float(modulation_info[2][1])
+        #S = Sustain.func_constant(sustain_time)
+        #S = Sustain.invlog(sustain_time, S_total_time)
+        S = Sustain.pulses(sustain_time, S_total_time, 1, 2)
         for m, s in zip(range(len(A), len(S)+len(A)), range(0, len(S))):
             M[m] = S[s] 
 
@@ -67,13 +73,9 @@ class process:
 
         
         self.sine = np.multiply(self.sine, M)
-        print('hey')
 
     def size(self):
         return len(self.sine)
-
-
-#sustain = self.duration*frate - self.start*frate - attack - decay
 
 
     def get_data (self):

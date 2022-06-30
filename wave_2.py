@@ -1,13 +1,7 @@
 
-from re import A
 import wave
 import numpy as np
-#import math
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-#import contextlib
 from read_txt_files import music_sheet_info, harmonics_info
-#import sys
 from process import process as sinthesizer
 from plot_file import plot
 
@@ -79,6 +73,3 @@ def create_sine_each_note (s_audio, frate = 44100):
 main(frate=44100)
 plot()
 
-
-
-#

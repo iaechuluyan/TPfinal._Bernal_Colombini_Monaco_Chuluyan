@@ -9,7 +9,7 @@ dic = {"not": funct}
 class Attack():
     def __init__(self):
         pass
-    def func_linear(t: float, t0: float) -> float:
+    def func_linear(self, t: float, t0: float) -> float:
         """
         Linear function used to calculate the attack time.
 
@@ -45,7 +45,7 @@ class Attack():
         """
         exp = np.zeros(len(t))
         for idx in range(0, len(t)):
-            exp[idx]= math.exp((5*(t-t0))/t0)
+            exp[idx]= math.exp((5*(t[idx]-t0))/t0)
 
         return exp
 
@@ -65,7 +65,11 @@ class Attack():
         float
             value of function
         """
-        return math.sin((math.pi*t)/(2*t0))
+        quartsin = np.zeros(len(t))
+        for idx in range(0, len(t)):
+            quartsin[idx]= math.sin((math.pi*t[idx])/(2*t0))
+
+        return quartsin
 
     def halfsin(self, t: float, t0: float) -> float:
         """
@@ -83,7 +87,12 @@ class Attack():
         float
             value of function
         """
-        return (1+math.cos((math.pi*t)/t0))/2
+        halfsin = np.zeros(len(t))
+        for idx in range(0, len(t)):
+            aux_calc = (t[idx]/t0)-(1/2)
+            halfsin[idx] = (1+math.cos((math.pi*(aux_calc))))/2
+
+        return halfsin
 
     def log(self, t: float, t0: float) -> float:
         """
@@ -101,7 +110,11 @@ class Attack():
         float
             value of function
         """
-        return math.log(((9*t)/10)+1,10)
+        log = np.zeros(len(t))
+        for idx in range(0, len(t)):
+            log[idx] = math.log(((9*t[idx])/t0)+1,10)
+
+        return log
 
     def tri(self, t: float, t0: float, t1: float, a1: float) -> float: #ACA
         """
@@ -125,9 +138,9 @@ class Attack():
         T = np.zeros(len(t))
         for idx in range(0, len(t)):
             if t[idx] < t1:
-                T[idx] = (t*a1)/t1
+                T[idx] = (t[idx]*a1)/t1
             elif t[idx] > t1:
-                T[idx] = ((t-t1)/(t1-t0)) + a1
+                T[idx] = ((t[idx]-t1)/(t1-t0)) + a1
         
         return T
 
@@ -135,7 +148,7 @@ class Attack():
 class Sustain():
     def __init__(self):
         pass
-    def func_constant(duration) -> int:
+    def func_constant(self, duration) -> int:
         """
         Constant function used to calculate the sustain time.
 
@@ -170,8 +183,6 @@ class Sustain():
                 invlinear[idx] = 0
         
         return invlinear
-        
-
 
     def func_sin(self, t: float, a: float, f: float) -> float:
         """
@@ -191,7 +202,11 @@ class Sustain():
         float
             value of function
         """
-        return 1+ a*math.sin(f*t)
+        func_sin = np.zeros(len(t))
+        for idx in range(0, len(t)):
+            func_sin[idx]= 1 + a*math.sin(f*t[idx])
+
+        return func_sin
 
     def invexp(self,t: float,t0: float) -> float:
         """
@@ -209,9 +224,13 @@ class Sustain():
         float
             value of function
         """
-        return math.exp((-5*t)/t0)
+        invexp = np.zeros(len(t))
+        for idx in range(0, len(t)):
+            invexp[idx] = math.exp((-5*t[idx])/t0)
 
-    def quartcos(self, t: float, t0: float) -> float:
+        return invexp
+
+    def quartcos(self, t: float, t0: float) -> float: #
         """
         Quartic cosinusoidal function used to calculate the sustain time.
 
@@ -227,9 +246,14 @@ class Sustain():
         float
             value of function
         """
-        return math.cos((math.pi*t)/(2*t0))
+        quartcos = np.zeros(len(t))
+        for idx in range(0, len(t)):
+            quartcos[idx] = math.cos((math.pi*t[idx])/(2*t0))
 
-    def halfcos(self, t: float, t0: float) -> float:
+
+        return quartcos
+
+    def halfcos(self, t: float, t0: float) -> float: #
         """
         Half cosinusoidal function used to calculate the sustain time.
 
@@ -245,9 +269,14 @@ class Sustain():
         float
             value of function
         """
-        return (1+math.cos((math.pi*t)/t0))/2
+        halfcos = np.zeros(len(t))
+        for idx in range(0, len(t)):
+            halfcos[idx] = (1+math.cos((math.pi*t[idx])/t0))/2
 
-    def invlog(self, t: float, t0: float) -> float:
+        return halfcos
+
+
+    def invlog(self, t: float, t0: float) -> float: #!!!
         """
         Inverse logarithmic function used to calculate the sustain time.
 
@@ -263,16 +292,16 @@ class Sustain():
         float
             value of function
         """
-        invl = math.log((-9*t/t0) +10,10)
-        for idx in range(0, len(invl)):
+        invl = np.zeros(len(t))
+        for idx in range(0, len(t)):
             if invl[idx] < t0:
-                break
+                invl[idx] = math.log((-9*t[idx]/t0)+10, 10)
             else:
                 invl[idx] = 0
 
         return invl
 
-    def pulses(self, t: float, t0: float, t1: float, a1: float) -> float:
+    def pulses(self, t: float, t0: float, t1: float, a1: float) -> float: #!!! 
         """
         Pulses function used to calculate the sustain time.
 
@@ -280,6 +309,7 @@ class Sustain():
         ----------
         t : float
             time
+
         t0 : float
             time duration
         t1 : float
@@ -291,11 +321,15 @@ class Sustain():
         float
             value of function
         """
-        
-        t_ = (t/t0) - math.floor(t/t0)
-        return min(abs(((1-a1)/t1)(t_ - t0 + t1)) + a1)
+        t_ = np.zeros(len(t))
+        T_ = np.zeros(len(t))
+        for idx in range (0, len(t)):
+            t_[idx] = (t[idx]/t0) - math.floor(t[idx]/t0)
+            T_[idx] = abs(int((((1-a1)/t1)(t_[idx] - t0 + t1)) + a1))
 
-class Decay:
+        return min(T_)
+
+class Decay: ##### no nec modificarse xq aca si que allows la division, es uno menos tatata igual?
     def _init_(self):
         pass
 
@@ -335,7 +369,11 @@ class Decay:
             value of function
 
         """
-        return 1 - (math.exp(-t / t0))
+        invexp = np.zeros(len(t))
+        for idx in range (0, len(t)):
+            invexp[idx] = 1 - (math.exp(-t[idx] / t0))
+
+        return invexp
 
     def quartcos(self, t: float, t0: float) ->float:
         """
@@ -354,7 +392,11 @@ class Decay:
             value of function
 
         """
-        return 1 - (math.cos(t / t0)) ** 4
+        invquartcos = np.zeros(len(t))
+        for idx in range (0, len(t)):
+            invquartcos[idx] = 1 - (math.cos(t[idx] / t0)) ** 4
+
+        return invquartcos
 
     def halfcos(self, t: float, t0: float) ->float:
         """
@@ -373,7 +415,11 @@ class Decay:
             value of function
 
         """
-        return 1 - (math.cos(t / t0)) ** 2
+        invhalfcos = np.zeros(len(t))
+        for idx in range (0, len(t)):
+            invhalfcos[idx] = 1 - (math.cos(t[idx]/ t0)) ** 2
+
+        return invhalfcos
    
 
     def invlog(self, t: float, t0: float) ->float:
@@ -393,4 +439,12 @@ class Decay:
             value of function
 
         """
-        return 1 - (math.log(t / t0))
+        invlog = np.zeros(len(t))
+        for idx in range (0, len(t)):
+            invlog[idx] = 1 - (math.log(t[idx] / t0))
+
+        return invlog
+
+
+#chequear graficos
+#chequear tema tiempos, como pasarlo pa que quede mejor, sobretodo cdo el tiempo pasa (en secs), y se hace mas grande
