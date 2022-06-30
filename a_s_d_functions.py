@@ -1,32 +1,15 @@
 
-# 1) agarro la lista con los armonicos
-# 2) creo un m con zeros que tenga la =b cant de elementos que esos armonicos (44100 * )
-# 3) for idx, ti in enumerate(t)
-# if ti <= ta (ta es el momento de tiempo en el que termina el ataque):
-# *aplico funcion de ataque* digo m[idx] = ti / t0 (tengo q investigar q es t0) duracion?
-# elif ti   el de sostenido
-# elif el de decaer (hasta el limite de decaer)
-#cdo ya esta todo haces m
+import numpy as np
+import math
 
-
-# from pyrsistent import b
-
-
-# y = mx + b
-
-# f = t/t0
-
-    
 def funct(hola):
     print(f"hola {hola}")
 dic = {"not": funct}
 
-import math
-
 class Attack():
     def __init__(self):
         pass
-    def func_linear(self,t: float, t0: float) -> float:
+    def func_linear(t: float, t0: float) -> float:
         """
         Linear function used to calculate the attack time.
 
@@ -60,7 +43,11 @@ class Attack():
         float
             value of function
         """
-        return math.exp((5*(t-t0))/t0)
+        exp = np.zeros(len(t))
+        for idx in range(0, len(t)):
+            exp[idx]= math.exp((5*(t-t0))/t0)
+
+        return exp
 
     def quartsin(self, t: float, t0: float) -> float:
         """
@@ -116,7 +103,7 @@ class Attack():
         """
         return math.log(((9*t)/10)+1,10)
 
-    def tri(self, t: float, t0: float, t1: float, a1: float) -> float:
+    def tri(self, t: float, t0: float, t1: float, a1: float) -> float: #ACA
         """
         Triangular function used to calculate the attack time.
 
@@ -135,15 +122,20 @@ class Attack():
         float
             value of function
         """
-        if t < t1:
-            return (t*a1)/t1
-        elif t > t1:
-            return ((t-t1)/(t1-t0)) + a1
+        T = np.zeros(len(t))
+        for idx in range(0, len(t)):
+            if t[idx] < t1:
+                T[idx] = (t*a1)/t1
+            elif t[idx] > t1:
+                T[idx] = ((t-t1)/(t1-t0)) + a1
+        
+        return T
+
 
 class Sustain():
     def __init__(self):
         pass
-    def func_constant(self) -> int:
+    def func_constant(duration) -> int:
         """
         Constant function used to calculate the sustain time.
 
@@ -152,9 +144,9 @@ class Sustain():
         int
             value of function
         """
-        return 1
+        return np.ones(len(duration))
 
-    def func_invlinear(self,t,t0) -> float:
+    def func_invlinear(self, t,t0, decay_start) -> float:
         """
         Inverse linear function used to calculate the sustain time.
 
@@ -170,10 +162,16 @@ class Sustain():
         float
             value of function
         """
-        if t/t0 < 1:
-            return 1 - (t/t0)
-        elif t/t0 >= 1:
-            return 0
+        invlinear = 1 - (t - decay_start)/t0#restarle cdo empieza el decay
+        for idx in range(0, len(invlinear)):
+            if invlinear[idx] > 0:
+                continue
+            else:
+                invlinear[idx] = 0
+        
+        return invlinear
+        
+
 
     def func_sin(self, t: float, a: float, f: float) -> float:
         """
@@ -265,10 +263,14 @@ class Sustain():
         float
             value of function
         """
-        if t < t0:
-            return math.log((-9*t/t0) +10,10)
-        else:
-            return 0
+        invl = math.log((-9*t/t0) +10,10)
+        for idx in range(0, len(invl)):
+            if invl[idx] < t0:
+                break
+            else:
+                invl[idx] = 0
+
+        return invl
 
     def pulses(self, t: float, t0: float, t1: float, a1: float) -> float:
         """
@@ -289,7 +291,7 @@ class Sustain():
         float
             value of function
         """
-        import math
+        
         t_ = (t/t0) - math.floor(t/t0)
         return min(abs(((1-a1)/t1)(t_ - t0 + t1)) + a1)
 

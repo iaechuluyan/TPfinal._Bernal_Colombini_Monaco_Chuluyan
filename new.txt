@@ -1,8 +1,0 @@
-4 #y si te dan una nota de menor duracion que el attack y esas cosas??? (hacerlo con porcentaje)
-1 1
-2 0.72727272
-3 0.32323232
-4 0.151515151
-LINEAR 0.02
-CONSTANT
-INVLINEAR 0.1

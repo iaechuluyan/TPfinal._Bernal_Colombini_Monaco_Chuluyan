@@ -1,4 +1,3 @@
-from re import L
 from notes import notes_mapping
 
 
@@ -23,8 +22,6 @@ def music_sheet (file):
         for line in f:
             line.strip('\n')
             info = line.split(' ')
-            print(info)
-            print('0: ', info[0], '1: ', info[1], '2: ', info[2])
             if info[0].startswith('.'):
                 starts = 0.5
             else:
@@ -36,13 +33,11 @@ def music_sheet (file):
                 duration = 0.5
             else:
                 duration = int(info[2])
-            print('arrived')
             line_info.append([starts, note, duration])
 
     
     
     return line_info
-
 
 def get_frequency (note):
     '''
@@ -103,10 +98,9 @@ def harmonics_info (file):
 
         harmonics_info= sorting_harmonics(harmonic_info)
 
-    tuqui = [harmonics_info, A_S_D]
+    list_h_a_s_d = [harmonics_info, A_S_D]
     
-    return tuqui
-
+    return list_h_a_s_d
 
 def sorting_harmonics(harmonics):
     '''
@@ -155,11 +149,6 @@ def sorting_harmonics(harmonics):
     return harmonics
 
 
-music_sheet_info =  music_sheet ('ex.txt')  
-harmonics_info, modulation_info = harmonics_info('new.txt')
-print(harmonics_info)
-
-
-#tests? cómo
-#sort de las notas, necesario?
+music_sheet_info =  music_sheet ('music_notes.txt')  
+harmonics_info, modulation_info = harmonics_info('harmonics.txt')
 
