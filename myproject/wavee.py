@@ -11,15 +11,16 @@ def main(frate, h_file, p_file, wavfile):
     e= music_sheet_info[-1][2]
     length = l+e
     s_audio = np.zeros(int(length * frate))
-    writing_wave (create_sine_each_note(s_audio, harmonic_info, music_sheet_info, modulation_info, frate), frate)
+    writing_wave (create_sine_each_note(s_audio, harmonic_info, music_sheet_info, modulation_info, frate), wavfile, frate)
 
-def writing_wave (s_audio, frate = 44100):
+def writing_wave (s_audio, wavfile, frate = 44100):
     '''
     Writes the data on the wav file.
 
     Parameters
     ----------
         s_audio : numpy array
+        wavfile: wav binary file
         frate : frame rate
 
     Returns 
@@ -27,9 +28,9 @@ def writing_wave (s_audio, frate = 44100):
         None
 
     '''
-    s_audio = (s_audio*40).astype('<h')
+    s_audio = (s_audio*300).astype('<h')
     s_audio = s_audio.tobytes()
-    with wave.open('final.wav', 'w') as w:
+    with wave.open(wavfile, 'w') as w:
         w.setnchannels(1)
         w.setsampwidth(2) 
         w.setframerate(frate) 
@@ -62,21 +63,17 @@ def create_sine_each_note (s_audio, harmonic_info, music_sheet_info, modulation_
                 h = S
 
         
-        starting_i = int(h.start * frate)
-        until_i = int((h.end) * frate)
+        # starting_i = int(h.start * frate)
+        # until_i = int((h.end) * frate)
 
-        h.modularizar(frate)
+        h.a_s_d(frate)
+        h.translate_to_same_size(s_audio)
 
-        info = h.get_data()
+        note_info = h.get_data() 
 
-        
-       #CORREGIR FOR 
-        for c, i in zip((range(starting_i, until_i)), (range(0, len(info)))):
-            s_audio[c] += info[i]     
+        s_audio += note_info  
 
     return s_audio
 
 main(44100, 'harmonics.txt', 'queen.txt', 'wav.wav')
 plot()
-
-#tengo que concatenar listas, en vez de unir por fragmentos

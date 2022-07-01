@@ -43,10 +43,8 @@ class Functions():
         float
             value of function
         """
-        exp = np.zeros(len(t))
-        for idx in range(0, len(t)):
-            exp[idx]= math.exp((5*(t[idx]-t0))/t0)
 
+        exp = math.exp((5*(t-t0))/t0)
         return exp
 
     def quartsin(self, t, t0):
@@ -65,10 +63,7 @@ class Functions():
         float
             value of function
         """
-        quartsin = np.zeros(len(t))
-        for idx in range(0, len(t)):
-            quartsin[idx]= math.sin((math.pi*t[idx])/(2*t0))
-
+        quartsin =  math.sin((math.pi*t)/(2*t0))
         return quartsin
 
     def halfsin(self, t, t0):
@@ -87,10 +82,8 @@ class Functions():
         float
             value of function
         """
-        halfsin = np.zeros(len(t))
-        for idx in range(0, len(t)):
-            aux_calc = (t[idx]/t0)-(1/2)
-            halfsin[idx] = (1+math.cos((math.pi*(aux_calc))))/2
+        aux_calc = (t/t0) - 0.5
+        halfsin= (1+math.cos((math.pi*(aux_calc))))/2
 
         return halfsin
 
@@ -110,9 +103,7 @@ class Functions():
         float
             value of function
         """
-        log = np.zeros(len(t))
-        for idx in range(0, len(t)):
-            log[idx] = math.log(((9*t[idx])/t0)+1,10)
+        log = math.log(((9*t)/t0)+1,10)
 
         return log
 
@@ -135,14 +126,10 @@ class Functions():
         float
             value of function
         """
-        T = np.zeros(len(t))
-        for idx in range(0, len(t)):
-            if t[idx] < t1:
-                T[idx] = (t[idx]*a1)/t1
-            elif t[idx] > t1:
-                T[idx] = ((t[idx]-t1)/(t1-t0)) + a1
-        
-        return T
+        t[t<t1] = (t*a1)/t1
+        t[t>t1] = ((t-t1)/(t1-t0)) + a1
+
+        return t
 
     def func_constant(self, duration):
         """
@@ -155,7 +142,7 @@ class Functions():
         """
         return np.ones(len(duration))
 
-    def func_invlinear(self, t,t0, decay_start):
+    def func_invlinear(self, t,t0): #A
         """
         Inverse linear function used to calculate the sustain time.
 
@@ -171,14 +158,19 @@ class Functions():
         float
             value of function
         """
-        invlinear = np.zeros(len(t))
-        for idx in range(0, len(invlinear)):
-            if 1 - (t[idx]/t0):
-                invlinear[idx] = 1 - (t[idx]/t0)
+
+        invl = np.zeros(len(t))
+        for idx in range (0, len(t)):
+            if (t[idx]/t0) < 1:
+                invl[idx] = 1- (t[idx]/t0)
             else:
-                invlinear[idx] = 0
+                invl[idx] = 0
+
+
+        # t[(t/t0)<1] = 1 - (t/t0)
+        # t[(t/t0)>1] = 0
         
-        return invlinear
+        return invl
 
     def func_sin(self, t, a, f):
         """
@@ -198,9 +190,7 @@ class Functions():
         float
             value of function
         """
-        func_sin = np.zeros(len(t))
-        for idx in range(0, len(t)):
-            func_sin[idx]= 1 + a*math.sin(f*t[idx])
+        func_sin = 1 + a*math.sin(f*t)
 
         return func_sin
 
@@ -220,13 +210,11 @@ class Functions():
         float
             value of function
         """
-        invexp = np.zeros(len(t))
-        for idx in range(0, len(t)):
-            invexp[idx] = math.exp((-5*t[idx])/t0)
+        invexp = math.exp((-5*t)/t0)
 
         return invexp
 
-    def quartcos(self, t, t0): #!!!
+    def quartcos(self, t, t0): 
         """
         Quartic cosinusoidal function used to calculate the sustain time.
 
@@ -242,14 +230,12 @@ class Functions():
         float
             value of function
         """
-        quartcos = np.zeros(len(t))
-        for idx in range(0, len(t)):
-            quartcos[idx] = math.cos((math.pi*t[idx])/(2*t0))
+        quartcos = math.cos((math.pi*t)/(2*t0))
 
 
         return quartcos
 
-    def invlog(self, t, t0): #!!!***
+    def invlog(self, t, t0): #A
         """
         Inverse logarithmic function used to calculate the sustain time.
 
@@ -265,16 +251,12 @@ class Functions():
         float
             value of function
         """
-        invl = np.zeros(len(t))
-        for idx in range(0, len(t)):
-            if invl[idx] < t0:
-                invl[idx] = math.log((-9*t[idx]/t0)+10, 10)
-            else:
-                invl[idx] = 0
+        t[t<t0] = math.log((-9*t/t0)+10, 10)
+        t[t>t0] = 0
 
-        return invl
+        return t
 
-    def pulses(self, t, t0, t1, a1): #***
+    def pulses(self, t, t0, t1, a1): #A
         """
         Pulses function used to calculate the sustain time.
 
@@ -294,15 +276,13 @@ class Functions():
         float
             value of function
         """
-        t_ = np.zeros(len(t))
-        T_ = np.zeros(len(t))
-        for idx in range (0, len(t)):
-            t_[idx] = (t[idx]/t0) - math.floor(t[idx]/t0)
-            T_[idx] = abs(int((((1-a1)/t1)(t_[idx] - t0 + t1)) + a1))
+        print(t/t0)
+        t_ = (t/t0) - abs(t/t0)
+        pulses_two =  math.floor(abs(((1-a1)/t1)*(t_ - t0 + t1)) + 1)
 
-        return min(T_)
+        return pulses_two
 
-    def quartcos(self, t, t0): #!!!
+    def quartcos(self, t, t0): 
         """
         Quartcos function is used to calculate the decay time.
 
@@ -319,9 +299,7 @@ class Functions():
             value of function
 
         """
-        invquartcos = np.zeros(len(t))
-        for idx in range (0, len(t)):
-            invquartcos[idx] = 1 - (math.cos(math.pi*t[idx] / 2*t0))
+        invquartcos = 1 - (math.cos(math.pi*t/ 2*t0))
 
         return invquartcos
 
@@ -342,11 +320,6 @@ class Functions():
             value of function
 
         """
-        invhalfcos = np.zeros(len(t))
-        for idx in range (0, len(t)):
-            invhalfcos[idx] = 1 - ((math.cos(math.pi*t[idx]/ 2*t0)) / 2)
+        invhalfcos = 1 - ((math.cos(math.pi*t/ 2*t0)) / 2)
 
         return invhalfcos
-   
-
-

@@ -1,5 +1,5 @@
 import argparse
-from wavee import main
+from myproject.wavee import main
 
 parser = argparse.ArgumentParser(description="Execute the python synthesizer")
 parser.add_argument("-f", "--frequency", action="store" ,

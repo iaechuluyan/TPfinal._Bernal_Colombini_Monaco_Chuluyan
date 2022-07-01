@@ -35,20 +35,17 @@ class process:
         self.amplitude = amplitude
         self.modulation_info = modulation_info
         self.note_duration = duration
+        self.frate = frate
 
-        t = np.linspace(self.start, self.end, int((self.end-self.start)*frate)) 
-        sine =  self.amplitude * np.sin(2* np.pi * self.frequency * t) 
-        concatenate_rest = np.zeros(len(s_audio)-len(sine))
-        self.sine = np.concatenate(sine, concatenate_rest) #a partir d esto trabajo
-        
-        self.len = self.sine.shape[0]
+        t = np.linspace(self.start, self.end, int((self.end-self.start)*self.frate)) 
+        self.sine =  self.amplitude * np.sin(2* np.pi * self.frequency * t) 
 
 
     def sum_sine (self, sin):
         self.sine = sum([self.sine, sin.get_data()])
 
 
-    def modularizar (self, frate): 
+    def a_s_d (self, frate): 
         attack_end = (self.note_duration)*float(self.modulation_info[0][1])
         attack_step = int(attack_end*frate)
 
@@ -72,16 +69,23 @@ class process:
         #decay 
         D_total_time = (self.note_duration)*float(self.modulation_info[2][1])
         decay_start= (self.end - decay_lasting)
-        D = F.func_invlinear(decay_time, D_total_time, decay_start)
+        D = F.func_invlinear(decay_time, D_total_time)
 
         M = np.concatenate((A, S, D))
         print(M)
         
         self.sine = np.multiply(self.sine, M)
+    
+    def translate_to_same_size (self, s_audio):
+        conc1 = np.zeros(int(self.start*self.frate)) 
+        self.sine = np.concatenate((conc1,self.sine)) 
+        aux_calc = len(s_audio)-len(self.sine)
+        conc2 = np.zeros (aux_calc)
+        self.sine = np.concatenate((self.sine, conc2))
+
 
     def size(self):
         return len(self.sine)
-
 
     def get_data (self):
         return self.sine
