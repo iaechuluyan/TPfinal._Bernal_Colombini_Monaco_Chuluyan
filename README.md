@@ -1,13 +1,34 @@
 # TPfinal._Bernal_Colombini_Monaco_Chuluyan
 Trabajo practico final_Pensamiento computacional.2022
 
-Requirements.txt (todas las librerias necesarias para poder, hay que hacer arhivo aparte)
+This project has two main utilites:
+- Synthesize the predefined notes of a music sheet
+- Play an instrument with notes from a music sheet
 
-setup.py(arhivo python que tiene que tener)
+◊ More about Tpfinal:
 
-Carpeta(tiene todo el codigo python--> que tiene definiciones de clases y funciones NO VA EL MAIN!)
+   - Libary of components:
+        · Scripts 
+        · Functions
+        
+   - Installation: (COMPLETAR)
+       1)Install npay
+       2)
 
-Scripts(Carpeta que tiene todos los arhivos ejecutables-->main.py)
+   - How to use the proyect: (COMPLETAR)
+
+
+   - The team: (opcional agregar link a nuestros git)
+     · Tiziano Martin Bernal 
+     · Iael Chuluyan
+     · Romanella Colombini
+     · Vianca Monaco
+     
+   - License:
+     · MIT License
+
+
+
 
 
 
