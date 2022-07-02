@@ -10,11 +10,6 @@ The synthesizer has two main utilites:
 
 
 
-**Table of Contents**
-
-[TOCM]
-
-[TOC]
 
 # Libary of components:
 
