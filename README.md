@@ -29,13 +29,13 @@ A completar
 # How to use the proyect
 A completar 
 
-#The team
-  [Tiziano Martin Bernal ](https://github.com/tizianomartinbernal)
-  [Iael Chuluyan](https://github.com/iaechuluyan)
-  [Romanella Colombini](https://github.com/Romanellac)
-   [Vianca Monaco](https://github.com/vmonaco2)
+# The team
+ [Tiziano Martin Bernal ](https://github.com/tizianomartinbernal)
+ [Iael Chuluyan](https://github.com/iaechuluyan)
+ [Romanella Colombini](https://github.com/Romanellac)
+  [Vianca Monaco](https://github.com/vmonaco2)
 
-#License
+# License
 
 The MIT License (MIT)
 
