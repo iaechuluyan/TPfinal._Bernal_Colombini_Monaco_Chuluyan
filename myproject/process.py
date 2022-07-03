@@ -27,7 +27,7 @@ class process:
 
     '''
     def __init__(self, start, duration, amplitude, frequency, modulation_info, frate):
-        if type(start) not in [int, float] or type(duration) not in [int, float] or type(amplitude) not in [int, float] or type(frequency) not in [int, float]:
+        if str(type(start)) not in ["<class 'int'>", "<class 'float'>"] or str(type(duration)) not in ["<class 'int'>", "<class 'float'>"] or str(type(amplitude)) not in ["<class 'int'>", "<class 'float'>"] or str(type(frequency)) not in ["<class 'int'>", "<class 'float'>"]:
             raise ValueError('must be of integer or float type')
         if type(modulation_info) != list:
             raise TypeError('modulation_info must be a list')
@@ -44,6 +44,7 @@ class process:
         self.modulation_info = modulation_info
         self.frate = frate
 
+        self.crrrrKKKKKK = (self.end-self.start)*self.frate
         t = np.linspace(self.start, self.end, int((self.end-self.start)*self.frate)) 
         self.sine =  self.amplitude * np.sin(2* np.pi * self.frequency * t) 
 
@@ -54,7 +55,7 @@ class process:
     def decide_function(self, a_time, a_end, s_time, s_tot_time, d_time, d_tot_time):
         if type(a_time) != type(np.array(0)) or type(s_time)!= type(np.array(0)) or type(d_time)!= type(np.array(0)):#asi se dice el type?
             raise TypeError('a_time, s_time and d_time must be numpy arrays')
-        if type(a_end) not in [int, float] or type(s_tot_time) in [int, float] or type(d_tot_time) in [int, float]:
+        if type(a_end) != float or type(s_tot_time) != float or type(d_tot_time) != float:
             raise TypeError('a_time, s_time, d_time must be of type int or float')
 
         if self.modulation_info[0][0] in ['TRI']:
@@ -104,7 +105,7 @@ class process:
         A, S, D = self.decide_function(attack_time, attack_end, sustain_time, S_total_time, decay_time, D_total_time)
 
         M = np.concatenate((A, S, D))
-        print(M)
+
         
         self.sine = np.multiply(self.sine, M)
     
@@ -113,7 +114,7 @@ class process:
             raise TypeError('s_audio must be a numpy array')
 
         conc1 = np.zeros(int(self.start*self.frate)) 
-        self.sine = np.concatenate((conc1,self.sine)) 
+        self.sine = np.concatenate((conc1,self.sine))
         aux_calc = len(s_audio)-len(self.sine)
         conc2 = np.zeros (aux_calc)
         self.sine = np.concatenate((self.sine, conc2))

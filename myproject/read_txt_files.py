@@ -1,48 +1,6 @@
 from notes import notes_mapping
+from sorting import sorting_array, sorting_notes
 
-def sorting_notes(notes):
-    if type(notes) != list:
-        raise TypeError('notes must be a list')
-    if len(notes) == 0:
-        raise ValueError('list must be of length different than 0')
-
-    # for i in range(0, len(notes)):
-    #     if type(notes[i]) != list:
-    #         raise TypeError()
-
-
-
-    if len(notes) > 1:
-        r = len(notes) // 2
-        L = notes[:r]
-        M = notes[r:]
-
-        sorting_notes(L)
-        sorting_notes(M)
-
-        i = j = k = 0
-
-        while i < len(L) and j < len(M):
-            if L[i][0] < M[j][0]:
-                notes[k] = L[i]
-                i+=1
-            else:
-                notes[k] = M[j]
-                j+=1
-            k+=1
-
-
-        while i < len(L):
-            notes[k] = L[i]
-            i += 1
-            k += 1
-
-        while j < len(M):
-            notes[k] = M[j]
-            j += 1
-            k += 1
-
-    return notes
 
 def music_sheet (file):
     '''
@@ -65,23 +23,33 @@ def music_sheet (file):
     line_info = []
     with open (file, 'r') as f:
         for line in f:
+            
             line.strip('\n')
+            
             info = line.split(' ')
+            
             if info[0].startswith('.'):
                 starts = 0.5
             else:
                 starts = float(info[0])
-            
-            note = get_frequency(info[1])
+
+            if info[1] == '(None,':
+                note = 0
+
+            else:
+                note = get_frequency(info[1])
 
             if info[2].startswith('.'):
                 duration = 0.5
+            elif info[1] == '(None,':
+                duration = float(info[3])
             else:
                 duration = float(info[2])
+            
             line_info.append([starts, note, duration])
 
-    line_info = sorting_notes(line_info)
     
+    line_info = sorting_notes(line_info)
     return line_info
 
 def get_frequency (note):
@@ -100,12 +68,15 @@ def get_frequency (note):
     '''
     if type(note) != str:
         raise TypeError('note must be a string')
+    
 
     for tuple in notes_mapping:
         if note == tuple[0]:
             return tuple[1]
         else:
             continue
+    
+    raise Exception('The note was not in the list of notes')
 
 def harmonics_info (file):
     '''
@@ -147,62 +118,11 @@ def harmonics_info (file):
                 A_S_D.append(lines[i].split(' '))
                 i+=1
 
-        harmonics_info= sorting_harmonics(harmonic_info)
+        harmonics_info= sorting_array(harmonic_info)
 
     list_h_a_s_d = [harmonics_info, A_S_D]
     
     return list_h_a_s_d
 
-def sorting_harmonics(harmonics):
-    '''
-    Orders the list of harmonics.
 
-    Parameters
-    ----------
-    harmonics : list
-        Contains the harmonics' information.
-
-    Returns
-    -------
-        The harmonics' list ordered.
-    
-    '''
-    if type(harmonics) != list:
-        raise TypeError('harmonics must be a list')
-    if len(harmonics) == 0:
-        raise ValueError('list must be of length different than 0')
-    
-
-    if len(harmonics) > 1:
-        r = len(harmonics) // 2
-        L = harmonics[:r]
-        M = harmonics[r:]
-
-        sorting_harmonics(L)
-        sorting_harmonics(M)
-
-        i = j = k = 0
-
-        while i < len(L) and j < len(M):
-            if L[i][0] < M[i][0]:
-                harmonics[k] = L[i]
-                i+=1
-            else:
-                harmonics[k] = M[j]
-                j+=1
-            k+=1
-
-
-        while i < len(L):
-            harmonics[k] = L[i]
-            i += 1
-            k += 1
-
-        while j < len(M):
-            harmonics[k] = M[j]
-            j += 1
-            k += 1
-
-    return harmonics
-
-
+music_sheet('queentwo.txt')

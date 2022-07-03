@@ -26,11 +26,12 @@ class Functions():
         if type(t) != type(np.array(0)):  #asi se dice el type?
             raise TypeError('t must be a numpy array')
 
-        if type(t0) not in [int, float]:
+        if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
 
         if t0 == 0:
-            raise ValueError('t0 must not be 0')
+            t0 = 1
+            #raise ValueError('t0 must not be 0')
 
         return t/t0
 
@@ -53,7 +54,7 @@ class Functions():
         if type(t) != type(np.array(0)):  #asi se dice el type?
             raise TypeError('t must be a numpy array')
 
-        if type(t0) not in [int, float]:
+        if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
 
         if t0 == 0:
@@ -81,7 +82,7 @@ class Functions():
         if type(t) != type(np.array(0)):  #asi se dice el type?
             raise TypeError('t must be a numpy array')
 
-        if type(t0) not in [int, float]:
+        if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
 
         if t0 == 0:
@@ -109,7 +110,7 @@ class Functions():
         if type(t) != type(np.array(0)):  #asi se dice el type?
             raise TypeError('t must be a numpy array')
 
-        if type(t0) not in [int, float]:
+        if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
 
         if t0 == 0:
@@ -139,7 +140,7 @@ class Functions():
         if type(t) != type(np.array(0)):  #asi se dice el type?
             raise TypeError('t must be a numpy array')
 
-        if type(t0) not in [int, float]:
+        if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
 
         if t0 == 0:
@@ -171,7 +172,7 @@ class Functions():
         if type(t) != type(np.array(0)):  #asi se dice el type?
             raise TypeError('t must be a numpy array')
 
-        if type(t1) not in [int, float] or type(a1) not in [int, float] or type(t0) not in [int, float]:
+        if str(type(t1)) not in ["<class 'int'>", "<class 'float'>"] or str(type(a1)) not in ["<class 'int'>", "<class 'float'>"] or str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0, t1 and a1 must be of int or float type')
 
         if t1 == 0:
@@ -225,11 +226,12 @@ class Functions():
         if type(t) != type(np.array(0)):  #asi se dice el type?
             raise TypeError('t must be a numpy array')
 
-        if type(t0) not in [int, float]:
+        if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
 
         if t0 == 0:
-            raise ValueError('t0 must not be 0')
+            t0 = 1
+            # raise ValueError('t0 must not be 0')
 
         invl = np.zeros(len(t))
         for idx in range (0, len(t)):
@@ -265,7 +267,7 @@ class Functions():
         if type(t) != type(np.array(0)):  #asi se dice el type?
             raise TypeError('t must be a numpy array')
 
-        if type(a) not in [int, float] or type(f) not in [int, float]:
+        if str(type(a)) not in ["<class 'int'>", "<class 'float'>"] or str(type(f)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('a and f must be of int or float type')
 
 
@@ -292,7 +294,7 @@ class Functions():
         if type(t) != type(np.array(0)):  #asi se dice el type?
             raise TypeError('t must be a numpy array')
 
-        if type(t0) not in [int, float]:
+        if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
 
         if t0 == 0:
@@ -321,7 +323,7 @@ class Functions():
         if type(t) != type(np.array(0)):  #asi se dice el type?
             raise TypeError('t must be a numpy array')
 
-        if type(t0) not in [int, float]:
+        if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
 
         if t0 == 0:
@@ -352,7 +354,7 @@ class Functions():
         if type(t) != type(np.array(0)):  #asi se dice el type?
             raise TypeError('t must be a numpy array')
 
-        if type(t0) not in [int, float]:
+        if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
 
         if t0 == 0:
@@ -393,7 +395,7 @@ class Functions():
         if type(t) != type(np.array(0)):  #asi se dice el type?
             raise TypeError('t must be a numpy array')
 
-        if type(t0) not in [int, float] or type(t1) not in [int, float] or type(a1) not in [int, float]:
+        if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"] or str(type(t1)) not in ["<class 'int'>", "<class 'float'>"] or str(type(a1)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0, t1 and a1 must be of int or float type')
 
         if t0 == 0 or t1 == 0: 
@@ -425,11 +427,11 @@ class Functions():
         if type(t) != type(np.array(0)):  #asi se dice el type?
             raise TypeError('t must be a numpy array')
 
-        if type(t0) not in [int, float]:
+        if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
 
         if t0 == 0:
-            raise ValueError('t0 must not be 0')
+            t0 == 1
 
         invhalfcos = 1 - ((np.cos(math.pi*t/ 2*t0)) / 2) 
 
