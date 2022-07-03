@@ -10,20 +10,32 @@ class process:
     Attributes:
     ----------
     start (float): The time the note starts.
+
     end (float): The time the note ends.
+
     frequency (float): The frequency of the note.
-    amplitude (float): The amplitude of the note.
-    modulation_info (float): The modulation info of the note.
+
+    amplitude (int): The amplitude of the note.
+
+    modulation_info (list): list containing the attack, sustain, and decay information.
+
     note_duration (float): The duration of the note.
-    sine (numpy array): The sine wave of the note.
-    len (int): The length of the sine wave.
+
+    sine (numpy array): The numpy array with the values the sine wave of the note would take.
 
     Methods:
     --------
     sum_sine (self, sin): Sums the numpy arrays of the note with the
-    numpy array of the note.
+    numpy array of some other note.
+
+    a_s_d (self, frate): applies the attack, sustain, and decay modulation to the note.
+
+    translate_to_same_size (self, s_audio): adds 0's to the numpy array at the correct positions in order
+    for self.sine to have the same size as the main numpy array (s_audio) in which is then going to be summed to.
+
     size (self): Returns the length of the sine wave.
-    get_data (self): Returns the sine wave.
+
+    get_data (self): Returns self.sine
 
     '''
     def __init__(self, start, duration, amplitude, frequency, modulation_info, frate):
@@ -44,16 +56,15 @@ class process:
         self.modulation_info = modulation_info
         self.frate = frate
 
-        self.crrrrKKKKKK = (self.end-self.start)*self.frate
         t = np.linspace(self.start, self.end, int((self.end-self.start)*self.frate)) 
         self.sine =  self.amplitude * np.sin(2* np.pi * self.frequency * t) 
 
-        self.dict = { "LINEAR" : F.func_linear, "EXP": F.exp, "QUARTSIN" : F.quartsin , "HALFSIN" : F.halfsin , "LOG" : F.log , "TRI" : F.tri, "CONSTANT" : F.func_constant , 
-    "INVLINEAR" : F.func_invlinear, "SIN" : F.func_sin , "INVEXP" : F.invexp , "QUARTCOS" : F.quartcos , "INVLOG" : F.invlog, "PULSES" : F.pulses , "QUARTCOS" : F.quartcos ,
+        self.dict = { "LINEAR" : F.linear, "EXP": F.exp, "QUARTSIN" : F.quartsin , "HALFSIN" : F.halfsin , "LOG" : F.log , "TRI" : F.tri, "CONSTANT" : F.constant , 
+    "INVLINEAR" : F.invlinear, "SIN" : F.sin , "INVEXP" : F.invexp , "QUARTCOS" : F.quartcos , "INVLOG" : F.invlog, "PULSES" : F.pulses , "QUARTCOS" : F.quartcos ,
     "HALFCOS" : F.halfcos}
 
     def decide_function(self, a_time, a_end, s_time, s_tot_time, d_time, d_tot_time):
-        if type(a_time) != type(np.array(0)) or type(s_time)!= type(np.array(0)) or type(d_time)!= type(np.array(0)):#asi se dice el type?
+        if type(a_time) != type(np.array(0)) or type(s_time)!= type(np.array(0)) or type(d_time)!= type(np.array(0)):
             raise TypeError('a_time, s_time and d_time must be numpy arrays')
         if type(a_end) != float or type(s_tot_time) != float or type(d_tot_time) != float:
             raise TypeError('a_time, s_time, d_time must be of type int or float')
@@ -110,7 +121,7 @@ class process:
         self.sine = np.multiply(self.sine, M)
     
     def translate_to_same_size (self, s_audio):
-        if type(s_audio) != type(np.array(0)):  #asi se dice el type?
+        if type(s_audio) != type(np.array(0)):  
             raise TypeError('s_audio must be a numpy array')
 
         conc1 = np.zeros(int(self.start*self.frate)) 

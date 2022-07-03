@@ -1,4 +1,16 @@
-def sorting_array(array):
+def sorting_harmonics(array):
+    """
+    Used for the sorting of notes.
+
+    Parameters
+    ----------
+        array : the list with the notes' information
+
+    Returns
+    -------
+        array : the sorted list.
+    
+    """
     if type(array) != list:
         raise TypeError('array must be a list')
     if len(array) == 0:
@@ -15,8 +27,8 @@ def sorting_array(array):
         L = array[:r]
         M = array[r:]
 
-        sorting_array(L)
-        sorting_array(M)
+        sorting_harmonics(L)
+        sorting_harmonics(M)
 
         i = j = k = 0
 
@@ -44,6 +56,23 @@ def sorting_array(array):
 
 
 def sorting_notes (array):
+    """
+    Used for the sorting of notes.
+
+    Parameters
+    ----------
+        array : the list with the notes' information
+
+    Returns
+    -------
+        array : the sorted list.
+    
+    """
+    if type(array) != list:
+        raise TypeError('array must be a list')
+    if len(array) == 0:
+        raise ValueError('list must be of length different than 0')
+
     for each in range(len(array)):
         min_idx = each
         for i in range(each + 1, len(array)):

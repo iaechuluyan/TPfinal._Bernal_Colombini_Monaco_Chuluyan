@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from read_txt_files import sorting_notes
+from sorting import sorting_notes
 
 class TestSortingNotes(unittest.TestCase):
     def test_array_argument(self):
@@ -21,7 +21,7 @@ class TestSortingNotes(unittest.TestCase):
     
     def test_float_argument(self):
         arg1 = 10.10
-        self.assertRaises(ValueError,sorting_notes,arg1)
+        self.assertRaises(TypeError,sorting_notes,arg1)
 
     def test_list(self):
         list_test1 = [1,4,-2,0]

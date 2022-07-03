@@ -69,6 +69,9 @@ def get_frequency (note):
     if type(note) != str:
         raise TypeError('note must be a string')
     
+    if '[' in note or ']' in note:
+        raise ValueError(' string not accepted')
+    
 
     for tuple in notes_mapping:
         if note == tuple[0]:

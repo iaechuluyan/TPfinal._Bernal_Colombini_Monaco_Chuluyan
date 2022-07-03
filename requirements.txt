@@ -9,4 +9,5 @@ mypy
 flake8
 yapf
 isort
+pytest
 

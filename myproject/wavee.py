@@ -35,7 +35,7 @@ def writing_wave (s_audio, wavfile,frate = 44100):
         None
 
     '''
-    if type(s_audio) != type(np.array(0)):  #asi se dice el type?
+    if type(s_audio) != type(np.array(0)):  
         raise TypeError('s_audio must be a numpy array')
     if type(frate) != int:
         raise TypeError('Only integers allowed')
@@ -54,23 +54,27 @@ def writing_wave (s_audio, wavfile,frate = 44100):
 
 def create_sine_each_note (s_audio, harmonic_info, music_sheet_info, modulation_info, length, frate = 44100):
     '''
-    Iterates over the list of notes and harmonics, appends the data to a numpy array.
-    Applies attack, sustain and decay to the notes.
+    Iterates over the list of notes and harmonics in order to append the data to the main numpy array (s_audio)
+    Uses the process class methods to apply attack, sustain and decay and translate the created numpy array to 
+    the same size as the main numpy array in order to sum them.
 
     Parameters
     ----------
         s_audio : empty list
+        harmonic_info : list containing the information related to the harmonics.
+        music_sheet_info : list containing the information related to the music notes.
+        modulation_info : list containing the information related to the attack, decay and sustain.
+        length : the length in seconds of the song.
         frate : frame rate
 
     Returns 
     -------
-        s_audio : numpy array
-            The array with the appended data.
+        s_audio : numpy array (The array with the appended data)
 
     '''
-    if type(s_audio) != type(np.array(0)):  #asi se dice el type?
+    if type(s_audio) != type(np.array(0)):  
         raise TypeError('s_audio must be a numpy array')
-    if len(s_audio) != int(length * frate): #ESTE VA DSPS
+    if len(s_audio) != int(length * frate):
         raise Exception('the length of the file is not the correct one')
     if type(harmonic_info) != list or type(music_sheet_info) != list or type(modulation_info) != list:
         raise TypeError('harmonic_info, music_sheet_info and modulation_info must be of type list')
@@ -81,7 +85,7 @@ def create_sine_each_note (s_audio, harmonic_info, music_sheet_info, modulation_
     for note in music_sheet_info:
         h = []
         for frequency_change, amplitude in (harmonic_info):
-            S = sinthesizer(note[0], note[2], float(amplitude), float(note[1] * float(frequency_change)), modulation_info,frate) #saque s_audio xq no lo usabamos
+            S = sinthesizer(note[0], note[2], float(amplitude), float(note[1] * float(frequency_change)), modulation_info,frate) 
             if type(h) is not list:
                 h.sum_sine(S)
             else:

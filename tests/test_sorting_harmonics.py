@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from read_txt_files import sorting_harmonics
+from sorting import sorting_harmonics
 
 class TestSortingHarmonics(unittest.TestCase):
     def test_array_argument(self):
@@ -21,7 +21,7 @@ class TestSortingHarmonics(unittest.TestCase):
     
     def test_float_argument(self):
         arg1 = 10.10
-        self.assertRaises(ValueError,sorting_harmonics,arg1)
+        self.assertRaises(TypeError,sorting_harmonics,arg1)
 
     def test_list(self):
         test1 = sorting_harmonics([[['4', '0.151515151'], ['1', '1'], ['3', '0.32323232'], ['2', '0.72727272']]])

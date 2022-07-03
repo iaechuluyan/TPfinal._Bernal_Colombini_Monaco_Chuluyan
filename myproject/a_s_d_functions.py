@@ -1,57 +1,56 @@
-
 import numpy as np
 import math
-
-
 
 class Functions():
     def __init__(self):
         pass
-    def func_linear(self, t, t0): #A
+    def linear(self, t, t0):    
         """
-        Linear function used to calculate the attack time.
+        Linear function used to calculate the attack of the note.
 
         Parameters
         ----------
-        t : float
-            time
+        t : np.array
+            Time
         t0 : float
-            time duration
-
+            Attack duration time
+        
         Returns
         -------
-        float
-            value of function
+        np.array
+            Time array with the linear function
         """
-        if type(t) != type(np.array(0)):  #asi se dice el type?
+        if type(t) != type(np.array(0)):
             raise TypeError('t must be a numpy array')
 
         if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
 
+        if len(t) == 0:
+            raise ValueError('the length of the numpy array must not be 0')
+
         if t0 == 0:
             t0 = 1
-            #raise ValueError('t0 must not be 0')
 
         return t/t0
 
-    def exp(self, t, t0): #A
+    def exp(self, t, t0):
         """
-        Exponential function used to calculate the attack time.
+        Exponential function used to calculate the attack of the note.
 
         Parameters
         ----------
-        t : float
-            time
+        t : np.array
+            Time array
         t0 : float
-            time duration
+            Attack duration time
 
         Returns
         -------
-        float
-            value of function
+        np.array
+            Time array with the exponential function
         """
-        if type(t) != type(np.array(0)):  #asi se dice el type?
+        if type(t) != type(np.array(0)):
             raise TypeError('t must be a numpy array')
 
         if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
@@ -63,27 +62,30 @@ class Functions():
         exp = np.exp((5*(t-t0))/t0) 
         return exp
 
-    def quartsin(self, t, t0): #A
+    def quartsin(self, t, t0):
         """
-        Quartic sinusoidal function used to calculate the attack time.
+        Quartic sinusoidal function used to calculate the attack of the note.
 
         Parameters
         ----------
-        t : float
-            time
+        t : np.array
+            Time array
         t0 : float
-            time duration
+            Attack duration time
 
         Returns
         -------
-        float
-            value of function
+        np.array
+            Time array with the quartic sinusoidal function
         """
-        if type(t) != type(np.array(0)):  #asi se dice el type?
+        if type(t) != type(np.array(0)):
             raise TypeError('t must be a numpy array')
 
         if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
+        
+        if len(t) == 0:
+            raise ValueError('t must be of length different than 0')
 
         if t0 == 0:
             raise ValueError('t0 must not be 0')
@@ -91,23 +93,23 @@ class Functions():
         quartsin =  np.sin((math.pi*t)/(2*t0)) 
         return quartsin
 
-    def halfsin(self, t, t0): #A
+    def halfsin(self, t, t0):
         """
-        Half sinusoidal function used to calculate the attack time.
+        Half sinusoidal function used to calculate the attack of the note.
 
         Parameters
         ----------
-        t : float
-            time
+        t : np.array
+            Time array
         t0 : float
-            time duration
+            Attack duration time
 
         Returns
         -------
-        float
-            value of function
+        np.array
+            Time array with the half sinusoidal function
         """
-        if type(t) != type(np.array(0)):  #asi se dice el type?
+        if type(t) != type(np.array(0)):
             raise TypeError('t must be a numpy array')
 
         if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
@@ -116,32 +118,38 @@ class Functions():
         if t0 == 0:
             raise ValueError('t0 must not be 0')
 
+        if len(t) == 0:
+            raise ValueError('the length of the numpy array must not be 0')
+
         aux_calc = (t/t0) - 0.5
         halfsin= (1+np.cos((math.pi*(aux_calc))))/2 
 
         return halfsin
 
-    def log(self, t, t0): #A
+    def log(self, t, t0):
         """
-        Logarithmic function used to calculate the attack time.
+        Logarithmic function used to calculate the attack of the note.
 
         Parameters
         ----------
-        t : float
-            time
+        t : np.array
+            Time array
         t0 : float
-            time duration
+            Attack duration time
 
         Returns
         -------
-        float
-            value of function
+        np.array
+            Time array with the logarithmic function
         """
-        if type(t) != type(np.array(0)):  #asi se dice el type?
+        if type(t) != type(np.array(0)):
             raise TypeError('t must be a numpy array')
 
         if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
+
+        if len(t) == 0:
+            raise ValueError('the length of the numpy array must not be 0')
 
         if t0 == 0:
             raise ValueError('t0 must not be 0')
@@ -150,29 +158,32 @@ class Functions():
 
         return log
 
-    def tri(self, t, t0, t1, a1): #ACA A
+    def tri(self, t, t0, t1, a1):
         """
-        Triangular function used to calculate the attack time.
+        Triangular function used to calculate the attack of the note.
 
         Parameters
         ----------
-        t : float
-            time
+        t : np.array
+            Time array
         t0 : float
-            time duration
+            Attack duration time
         t1 : float
-       
+            Parameter
         a1 : float
+            Parameter
 
         Returns
         -------
-        float
-            value of function
+        np.array
+            Time array with the triangular function
         """
-        if type(t) != type(np.array(0)):  #asi se dice el type?
+        if type(t) != type(np.array(0)):
             raise TypeError('t must be a numpy array')
 
-        if str(type(t1)) not in ["<class 'int'>", "<class 'float'>"] or str(type(a1)) not in ["<class 'int'>", "<class 'float'>"] or str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
+        if str(type(t1)) not in ["<class 'int'>",
+        "<class 'float'>"]or str(type(a1)) not in ["<class 'int'>",
+        "<class 'float'>"] or str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0, t1 and a1 must be of int or float type')
 
         if t1 == 0:
@@ -191,47 +202,56 @@ class Functions():
         # t[t<t1] = (t*a1)/t1
         # t[t>t1] = ((t-t1)/(t1-t0)) + a1 #valueerror  NumPy boolean array indexing assignment cannot assign 2685 input values to the 0 output values where the mask is true
 
-        return tri #t
+        return tri
 
-    def func_constant(self, duration): #S
+    def constant(self, duration):
         """
-        Constant function used to calculate the sustain time.
-
-        Returns
-        -------
-        int
-            value of function
-        """
-        if type(duration) != type(np.array(0)):  #asi se dice el type?
-            raise TypeError('t must be a numpy array')
-
-        return np.ones(len(duration))
-
-    def func_invlinear(self, t, t0): #S, D
-        """
-        Inverse linear function used to calculate the sustain time.
+        Constant function used to calculate the sustain of the note.
 
         Parameters
         ----------
-        t : float
-            time
-        t0 : float
-            time duration
+        duration : float
+            Duration of the note
 
         Returns
         -------
-        float
-            value of function
+        np.array
+            Time array with the constant function
         """
-        if type(t) != type(np.array(0)):  #asi se dice el type?
+        if type(duration) != type(np.array(0)):
+            raise TypeError('t must be a numpy array')
+        if len(duration) == 0:
+            raise ValueError('The length of the numpy array must not be 0')
+
+        return np.ones(len(duration))
+
+    def invlinear(self, t, t0):
+        """
+        Inverse linear function used to calculate the sustain and decay of the note.
+
+        Parameters
+        ----------
+        t : np.array
+            Time array
+        t0 : float
+            Decay / sustain duration time
+
+        Returns
+        -------
+        np.array
+            Time array with the inverse linear function
+        """
+        if type(t) != type(np.array(0)):
             raise TypeError('t must be a numpy array')
 
         if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
 
+        if len(t) == 0:
+            raise ValueError('the length of the numpy array must not be 0')
+
         if t0 == 0:
             t0 = 1
-            # raise ValueError('t0 must not be 0')
 
         invl = np.zeros(len(t))
         for idx in range (0, len(t)):
@@ -240,62 +260,72 @@ class Functions():
             else:
                 invl[idx] = 0
 
-
         # t[(t/t0)<1] = 1 - (t/t0)
         # t[(t/t0)>1] = 0
-        
+
         return t
 
-    def func_sin(self, t, a, f): #S
+    def sin(self, t, a, f):
         """
-        Sinusoidal function used to calculate the sustain time.
+        Sinusoidal function used to calculate the sustain of the note.
 
         Parameters
         ----------
-        t : float
-            time
+        t : np.array
+            Time array
         a : float
-            amplitude
+            Amplitude
         f : float
-            frequency
+            Frequency
 
         Returns
         -------
-        float
-            value of function
+        np.array
+            Time array with the sinusoidal function
+
         """
-        if type(t) != type(np.array(0)):  #asi se dice el type?
+
+        if type(t) != type(np.array(0)):
             raise TypeError('t must be a numpy array')
 
-        if str(type(a)) not in ["<class 'int'>", "<class 'float'>"] or str(type(f)) not in ["<class 'int'>", "<class 'float'>"]:
+        if str(type(a)) not in ["<class 'int'>",
+        "<class 'float'>"] or str(type(f)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('a and f must be of int or float type')
 
+        if len(t) == 0:
+            raise ValueError('the length of the numpy array must not be 0')
 
         func_sin = 1 + a*np.sin(f*t) 
 
         return func_sin
 
-    def invexp(self,t,t0): #S, D
+    def invexp(self,t,t0):
         """
-        Inverse exponential function used to calculate the sustain time.
+        Inverse exponential function used to calculate the sustain and decay of the note.
 
         Parameters
         ----------
-        t : float
-            time
+        t : np.array
+            Time array
         t0 : float
-            time duration
+            Decay / sustain duration time
 
         Returns
         -------
-        float
-            value of function
+        np.array
+            Time array with the inverse exponential function
         """
-        if type(t) != type(np.array(0)):  #asi se dice el type?
+        if type(t) != type(np.array(0)): 
             raise TypeError('t must be a numpy array')
+
+        if len(t) == 0:
+            raise ValueError('the length of the numpy array must not be 0')
 
         if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
+
+        if len(t) == 0:
+            raise ValueError('the length of the numpy array must not be 0')
 
         if t0 == 0:
             raise ValueError('t0 must not be 0')
@@ -304,23 +334,23 @@ class Functions():
 
         return invexp
 
-    def quartcos(self, t, t0): #S, D
+    def quartcos(self, t, t0):
         """
-        Quartic cosinusoidal function used to calculate the sustain time.
+        Quartic cosinusoidal function used to calculate the sustain and decay of the note.
 
         Parameters
         ----------
-        t : float
-            time
+        t : np.array
+            Time array
         t0 : float
-            time duration
+            Decay / sustain duration time
 
         Returns
         -------
-        float
-            value of function
+        np.array
+            Time array with the quartic cosinusoidal function
         """
-        if type(t) != type(np.array(0)):  #asi se dice el type?
+        if type(t) != type(np.array(0)):
             raise TypeError('t must be a numpy array')
 
         if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
@@ -329,33 +359,38 @@ class Functions():
         if t0 == 0:
             raise ValueError('t0 must not be 0')
 
+        if len(t) == 0:
+            raise ValueError('the length of the numpy array must not be 0')
+
         arr = (math.pi*t)/(2*t0)
         quartcos = np.cos((arr))
 
-
         return quartcos
 
-    def invlog(self, t, t0): #S, D
+    def invlog(self, t, t0):
         """
-        Inverse logarithmic function used to calculate the sustain time.
+        Inverse logarithmic function used to calculate the sustain and decay of the note.
 
         Parameters
         ----------
-        t : float
-            time
+        t : np.array
+            Time array
         t0 : float
-            time duration
+            Decay / sustain duration time
 
         Returns
         -------
-        float
-            value of function
+        np.array
+            Time array with the inverse logarithmic function
         """
-        if type(t) != type(np.array(0)):  #asi se dice el type?
+        if type(t) != type(np.array(0)):
             raise TypeError('t must be a numpy array')
 
         if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
+        
+        if len(t) == 0:
+            raise ValueError('the length of the numpy array must not be 0')
 
         if t0 == 0:
             raise ValueError('t0 must not be 0')
@@ -372,31 +407,36 @@ class Functions():
 
         return t
 
-    def pulses(self, t, t0, t1, a1): #S
+    def pulses(self, t, t0, t1, a1):
         """
-        Pulses function used to calculate the sustain time.
+        Pulses function used to calculate the sustain of the note.
 
         Parameters
         ----------
-        t : float
-            time
-
+        t : np.array
+            Time array
         t0 : float
-            time duration
+            Sustain duration time
         t1 : float
-           
+            Parameter
         a1 : float
-   
+            Parameter
+
         Returns
         -------
-        float
-            value of function
+        np.array
+            Time array with the pulses function
         """
-        if type(t) != type(np.array(0)):  #asi se dice el type?
+        if type(t) != type(np.array(0)): 
             raise TypeError('t must be a numpy array')
 
-        if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"] or str(type(t1)) not in ["<class 'int'>", "<class 'float'>"] or str(type(a1)) not in ["<class 'int'>", "<class 'float'>"]:
+        if str(type(t0)) not in ["<class 'int'>",
+        "<class 'float'>"] or str(type(t1)) not in ["<class 'int'>",
+        "<class 'float'>"] or str(type(a1)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0, t1 and a1 must be of int or float type')
+
+        if len(t) == 0:
+            raise ValueError('the length of the numpy array must not be 0')
 
         if t0 == 0 or t1 == 0: 
             raise ValueError('t0 and t1 must not be 0')
@@ -407,28 +447,30 @@ class Functions():
 
         return pulses_two
 
-    def halfcos(self, t, t0): #S, D
+    def halfcos(self, t, t0):
         """
-        Halfcos function is used to calculate the decay time.
+        Halfcos function is used to calculate the sustain and decay of the note.
 
         Parameters
         ----------
-        t : float
-            Time.
+        t : np.array
+            Time array
         t0 : float
-            Time duration.
-
+            Decay / sustain duration time
+        
         Returns
         -------
-        float
-            value of function
-
+        np.array
+            Time array with the halfcos function
         """
-        if type(t) != type(np.array(0)):  #asi se dice el type?
+        if type(t) != type(np.array(0)): 
             raise TypeError('t must be a numpy array')
 
         if str(type(t0)) not in ["<class 'int'>", "<class 'float'>"]:
             raise TypeError('t0 must be of int or float type')
+        
+        if len(t) == 0:
+            raise ValueError('the length of the numpy array must not be 0')
 
         if t0 == 0:
             t0 == 1
@@ -436,4 +478,3 @@ class Functions():
         invhalfcos = 1 - ((np.cos(math.pi*t/ 2*t0)) / 2) 
 
         return invhalfcos
-   
