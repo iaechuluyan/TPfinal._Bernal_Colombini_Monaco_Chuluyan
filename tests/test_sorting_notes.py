@@ -24,9 +24,9 @@ class TestSortingNotes(unittest.TestCase):
         self.assertRaises(TypeError,sorting_notes,arg1)
 
     def test_list(self):
-        list_test1 = [1,4,-2,0]
+        list_test1 = [[2.0, 293.665, 5.0],[0.0, 261.626, 2.0], [3.0, 329.628, 4.0], [4.0, 349.228, 6.0]]
         sorting_notes(list_test1)
-        list_test2 = [-2,0,1,4]
+        list_test2 = [[0.0, 261.626, 2.0], [3.0, 329.628, 4.0],[2.0, 293.665, 5.0], [4.0, 349.228, 6.0]]
         self.assertEqual(list_test1,list_test2)
 
 if __name__ == '__main__':

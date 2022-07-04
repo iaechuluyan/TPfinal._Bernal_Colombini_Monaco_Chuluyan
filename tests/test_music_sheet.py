@@ -25,7 +25,7 @@ class TestMusicSheet(unittest.TestCase):
 
     def test_list(self):
         list_test1 = music_sheet("test_file_notes.txt")
-        list_test2 = [[0.0, 261.626, 2.0], [2.0, 293.665, 5.0], [3.0, 329.628, 4.0], [4.0, 349.228, 6.0]] #rari
+        list_test2 = [[0.0, 261.626, 2.0], [3.0, 329.628, 4.0],[2.0, 293.665, 5.0], [4.0, 349.228, 6.0]] 
         self.assertEqual(list_test1,list_test2)
 
 if __name__ == '__main__':
