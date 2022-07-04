@@ -1,13 +1,38 @@
-# TPfinal._Bernal_Colombini_Monaco_Chuluyan
-Trabajo practico final_Pensamiento computacional.2022
+**TPfinal._Bernal_Colombini_Monaco_Chuluyan
+**
+# The synthesizer
 
-Requirements.txt (todas las librerias necesarias para poder, hay que hacer arhivo aparte)
+The synthesizer has two main utilites:
 
-setup.py(arhivo python que tiene que tener)
-
-Carpeta(tiene todo el codigo python--> que tiene definiciones de clases y funciones NO VA EL MAIN!)
-
-Scripts(Carpeta que tiene todos los arhivos ejecutables-->main.py)
-
+- Synthesize the predefined notes of a music sheet
+- Play an instrument with notes from a music sheet
+- ✨Magic ✨
 
 
+
+
+# Libary of components:
+
+- [Functions](https://github.com/iaechuluyan/TPfinal._Bernal_Colombini_Monaco_Chuluyan/tree/main/myproject "Functions")
+- [Scripts](https://github.com/iaechuluyan/TPfinal._Bernal_Colombini_Monaco_Chuluyan/tree/main/scripts "Scripts")
+- [Tests](http://localhost/ "Tests")
+
+# Installation
+
+A completar
+
+# How to use the proyect
+A completar 
+
+# The team
+ [Tiziano Martin Bernal ](https://github.com/tizianomartinbernal)
+ 
+ [Iael Chuluyan](https://github.com/iaechuluyan)
+ 
+ [Romanella Colombini](https://github.com/Romanellac)
+ 
+ [Vianca Monaco](https://github.com/vmonaco2)
+
+# License
+
+The MIT License (MIT)
