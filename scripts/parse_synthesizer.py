@@ -19,5 +19,3 @@ score = args.score
 wavfile = args.wav
 main(frequency, instrument, score, wavfile)
 
-
-#pasar a int la frequency 

@@ -119,5 +119,4 @@ def create_sine_each_note (s_audio, harmonic_info, music_sheet_info, modulation_
 
     return s_audio
 
-main(44100, 'harmonics.txt', 'queen.txt', 'wav.wav')
 plot()

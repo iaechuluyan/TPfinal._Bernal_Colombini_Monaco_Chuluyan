@@ -1,5 +1,5 @@
 import argparse
-from .. scripts import wave
+from .. scripts import wavee
 
 parser = argparse.ArgumentParser(description="Execute the python synthesizer")
 parser.add_argument("-f", "--frequency", action="store" ,
@@ -17,7 +17,7 @@ frequency = args.frequency
 instrument = args.instrument
 score = args.score
 wavfile = args.wav
-wave.main(frequency, instrument, score, wavfile)
 
-
+if __name__ == "__main__":
+    wavee.main(frequency, instrument, score, wavfile)
 

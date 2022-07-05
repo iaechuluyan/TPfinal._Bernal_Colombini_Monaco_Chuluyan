@@ -124,4 +124,3 @@ def harmonics_info (file):
     return list_h_a_s_d
 
 
-music_sheet('queentwo.txt')
