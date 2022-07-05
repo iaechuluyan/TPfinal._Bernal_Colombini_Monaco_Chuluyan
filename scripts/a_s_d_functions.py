@@ -158,7 +158,7 @@ class Functions():
 
         return log
 
-    def tri(self, t, t0, t1, a1):
+    def tri(self, t, t0, t1, a1, frate=44100):
         """
         Triangular function used to calculate the attack of the note.
 
@@ -192,17 +192,12 @@ class Functions():
         if t1 == t0:
             raise ValueError('t0 must not be equal to t1')
 
-        tri = np.zeros(len(t))
-        for idx in range (0, len(t)):
-            if t[idx] < t1:
-                tri[idx] = (t*a1)/t1
-            elif t[idx] > t1:
-                tri[idx] = ((t-t1)/(t1-t0)) + a1
+        til = int(t1*frate)
 
-        # t[t<t1] = (t*a1)/t1
-        # t[t>t1] = ((t-t1)/(t1-t0)) + a1 #valueerror  NumPy boolean array indexing assignment cannot assign 2685 input values to the 0 output values where the mask is true
+        t[:til] = (t[:til]*a1)/t1
+        t[til:] = ((t[til:]-t1)/(t1-t0)) + a1
 
-        return tri
+        return t
 
     def constant(self, duration):
         """
@@ -253,15 +248,8 @@ class Functions():
         if t0 == 0:
             t0 = 1
 
-        invl = np.zeros(len(t))
-        for idx in range (0, len(t)):
-            if (t[idx]/t0) < 1:
-                invl[idx] = 1- (t[idx]/t0)
-            else:
-                invl[idx] = 0
-
-        # t[(t/t0)<1] = 1 - (t/t0)
-        # t[(t/t0)>1] = 0
+        invl = 1 - (t/t0)
+        invl[(t/t0)>1] = 0
 
         return t
 
@@ -395,17 +383,10 @@ class Functions():
         if t0 == 0:
             raise ValueError('t0 must not be 0')
 
-        invlog= np.zeros(len(t))
-        for idx in range (0, len(t)):
-            if t[idx] < t0:
-                invlog[idx] = np.log10((-9*t/t0)+10)
-            elif t[idx] > t0:
-                invlog[idx] = 0
+        invlog = np.log10((-9*t/t0)+10) #error
+        invlog[t>=t0] = 0
 
-        # t[t<t0] = np.log10((-9*t/t0)+10) #error
-        # t[t>t0] = 0
-
-        return t
+        return invlog
 
     def pulses(self, t, t0, t1, a1):
         """
@@ -441,7 +422,6 @@ class Functions():
         if t0 == 0 or t1 == 0: 
             raise ValueError('t0 and t1 must not be 0')
 
-        print(t/t0)
         t_ = (t/t0) - np.absolute(t/t0) 
         pulses_two =  np.floor(abs(((1-a1)/t1)*(t_ - t0 + t1)) + 1)
 
@@ -478,3 +458,4 @@ class Functions():
         invhalfcos = 1 - ((np.cos(math.pi*t/ 2*t0)) / 2) 
 
         return invhalfcos
+

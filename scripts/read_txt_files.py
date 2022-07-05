@@ -1,5 +1,5 @@
 from notes import notes_mapping
-from sorting import sorting_array, sorting_notes
+from sorting import sorting_harmonics, sorting_notes
 
 
 def music_sheet (file):
@@ -28,21 +28,17 @@ def music_sheet (file):
             
             info = line.split(' ')
             
-            if info[0].startswith('.'):
-                starts = 0.5
-            else:
-                starts = float(info[0])
 
-            if info[1] == '(None,':
+            starts = float(info[0])
+
+            if info[1] == '(None,': #mmmmm
                 note = 0
 
             else:
                 note = get_frequency(info[1])
 
-            if info[2].startswith('.'):
-                duration = 0.5
-            elif info[1] == '(None,':
-                duration = float(info[3])
+            if info[1] == '(None,':
+                duration = float(info[3]) #mmmmm
             else:
                 duration = float(info[2])
             
@@ -70,7 +66,7 @@ def get_frequency (note):
         raise TypeError('note must be a string')
     
     if '[' in note or ']' in note:
-        raise ValueError(' string not accepted')
+        raise ValueError('string not accepted')
     
 
     for tuple in notes_mapping:
@@ -89,11 +85,11 @@ def harmonics_info (file):
     Parameters
     ----------
     file : txt file
-        file containing the harmonics.
+        file containing the harmonics and modulation information.
 
     Returns
     -------
-        Two lists.
+        A list with two lists.
     
     '''
     if 'txt' not in file:
@@ -121,7 +117,7 @@ def harmonics_info (file):
                 A_S_D.append(lines[i].split(' '))
                 i+=1
 
-        harmonics_info= sorting_array(harmonic_info)
+        harmonics_info= sorting_harmonics(harmonic_info)
 
     list_h_a_s_d = [harmonics_info, A_S_D]
     

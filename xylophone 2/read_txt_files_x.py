@@ -1,5 +1,3 @@
-from notes import notes_mapping
-
 def music_sheet_x (file):
     '''
     Returns a list of lists with the starting time, the frequency and the lasting time of all the notes from
@@ -27,7 +25,7 @@ def music_sheet_x (file):
             
             note = info[1]
 
-            line_info.append([starts, note])
+            line_info.append([float(starts), note])
 
     return line_info
 

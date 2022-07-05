@@ -16,12 +16,6 @@ def sorting_harmonics(array):
     if len(array) == 0:
         raise ValueError('list must be of length different than 0')
 
-    # for i in range(0, len(array)):
-    #     if type(array[i]) != list:
-    #         raise TypeError()
-
-
-
     if len(array) > 1:
         r = len(array) // 2
         L = array[:r]

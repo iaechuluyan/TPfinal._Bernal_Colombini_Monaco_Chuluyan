@@ -9,38 +9,38 @@ class TestTri(unittest.TestCase):
         arg1 = np.array([1,2,3])
         arg2 = 2
         arg3 = np.array([])
-        self.assertRaises(ValueError,object_test.tri,arg1,arg2,arg2,arg3)
-        self.assertRaises(ValueError,object_test.tri,arg1,arg2,arg3,arg2)
-        self.assertRaises(ValueError,object_test.tri,arg1,arg3,arg2,arg2)
+        self.assertRaises(TypeError,object_test.tri,arg1,arg2,arg2,arg3)
+        self.assertRaises(TypeError,object_test.tri,arg1,arg2,arg3,arg2)
+        self.assertRaises(TypeError,object_test.tri,arg1,arg3,arg2,arg2)
         self.assertRaises(ValueError,object_test.tri,arg3,arg2,arg2,arg2)
 
     def test_none_argument(self):
         arg1 = np.array([1,2,3])
         arg2 = 2
         arg3 = None
-        self.assertRaises(ValueError,object_test.tri,arg1,arg2,arg2,arg3)
-        self.assertRaises(ValueError,object_test.tri,arg1,arg2,arg3,arg2)
-        self.assertRaises(ValueError,object_test.tri,arg1,arg3,arg2,arg2)
-        self.assertRaises(ValueError,object_test.tri,arg3,arg2,arg2,arg2)
+        self.assertRaises(TypeError,object_test.tri,arg1,arg2,arg2,arg3)
+        self.assertRaises(TypeError,object_test.tri,arg1,arg2,arg3,arg2)
+        self.assertRaises(TypeError,object_test.tri,arg1,arg3,arg2,arg2)
+        self.assertRaises(TypeError,object_test.tri,arg3,arg2,arg2,arg2)
     
     def test_string_argument(self):
         arg1 = np.array([1,2,3])
         arg2 = 2
         arg3 = "[1,2,3]"
-        self.assertRaises(ValueError,object_test.tri,arg1,arg2,arg2,arg3)
-        self.assertRaises(ValueError,object_test.tri,arg1,arg2,arg3,arg2)
-        self.assertRaises(ValueError,object_test.tri,arg1,arg3,arg2,arg2)
-        self.assertRaises(ValueError,object_test.tri,arg3,arg2,arg2,arg2)
+        self.assertRaises(TypeError,object_test.tri,arg1,arg2,arg2,arg3)
+        self.assertRaises(TypeError,object_test.tri,arg1,arg2,arg3,arg2)
+        self.assertRaises(TypeError,object_test.tri,arg1,arg3,arg2,arg2)
+        self.assertRaises(TypeError,object_test.tri,arg3,arg2,arg2,arg2)
 
     def test_int_argument(self):
         arg1 = 10
         arg2 = 2
-        self.assertRaises(ValueError,object_test.tri,arg1,arg2,arg2,arg2)
+        self.assertRaises(TypeError,object_test.tri,arg1,arg2,arg2,arg2)
     
     def test_float_argument(self):
         arg1 = 10.20
         arg2 = 2
-        self.assertRaises(ValueError,object_test.tri,arg1,arg2,arg2,arg2)
+        self.assertRaises(TypeError,object_test.tri,arg1,arg2,arg2,arg2)
     
     def test_array(self):
         arg1 = np.array([1,2,3])

@@ -5,6 +5,25 @@ from process import process as sinthesizer
 from plot_file import plot
 
 def main(frate, h_file, p_file, wavfile):
+    """
+    Function used to call create_sine_each_note and writing_wave.
+    Defines variables for later use:
+
+    Parameters
+    ----------
+    frate (int) : frequency rate.
+    
+    h_file (txt file) : file containing the harmonics and modulation information.
+
+    p_file (txt file) : file containing the music sheet.
+
+    wavfile (wav file) : file in which the sound is going to be saved.
+
+    Returns
+    -------
+    None
+    
+    """
     if type(frate) != int:
         raise TypeError('Only integers allowed')
     if 'txt' not in h_file or 'txt' not in p_file:
@@ -43,7 +62,7 @@ def writing_wave (s_audio, wavfile,frate = 44100):
         raise TypeError('wavfile must be a wav file')
 
 
-    s_audio = (s_audio*300).astype('<h')
+    s_audio = (s_audio*100).astype('<h')
     s_audio = s_audio.tobytes()
     with wave.open(wavfile, 'w') as w:
         w.setnchannels(1)
@@ -83,21 +102,20 @@ def create_sine_each_note (s_audio, harmonic_info, music_sheet_info, modulation_
 
 
     for note in music_sheet_info:
-        h = []
-        for frequency_change, amplitude in (harmonic_info):
-            S = sinthesizer(note[0], note[2], float(amplitude), float(note[1] * float(frequency_change)), modulation_info,frate) 
-            if type(h) is not list:
-                h.sum_sine(S)
-            else:
-                h = S
+        if note[0] - note[2] == 0.0 or note[0] - note[2] == 0:
+            continue
+        else:
+            h = []
+            for frequency_change, amplitude in (harmonic_info):
+                S = sinthesizer(note[0], note[2], float(amplitude), float(note[1] * float(frequency_change)), modulation_info,frate) 
+                if type(h) is not list:
+                    h.sum_sine(S)
+                else:
+                    h = S
 
 
-        h.a_s_d(frate)
-        h.translate_to_same_size(s_audio)
-
-        note_info = h.get_data() 
-
-        s_audio += note_info  
+            h.a_s_d(frate)
+            h.set(s_audio)
 
     return s_audio
 
