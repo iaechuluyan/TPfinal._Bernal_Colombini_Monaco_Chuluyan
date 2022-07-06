@@ -59,6 +59,9 @@ class Functions():
         if t0 == 0:
             raise ValueError('t0 must not be 0')
         
+        if len(t) == 0:
+            raise ValueError('the length of the numpy array must not be 0')
+        
         exp = np.exp((5*(t-t0))/t0) 
         return exp
 
@@ -289,7 +292,8 @@ class Functions():
 
     def invexp(self,t,t0):
         """
-        Inverse exponential function used to calculate the sustain and decay of the note.
+        Inverse exponential function used to calculate the sustain
+        and decay of the note.
 
         Parameters
         ----------
@@ -324,7 +328,8 @@ class Functions():
 
     def quartcos(self, t, t0):
         """
-        Quartic cosinusoidal function used to calculate the sustain and decay of the note.
+        Quartic cosinusoidal function used to calculate the sustain
+        and decay of the note.
 
         Parameters
         ----------
@@ -357,7 +362,8 @@ class Functions():
 
     def invlog(self, t, t0):
         """
-        Inverse logarithmic function used to calculate the sustain and decay of the note.
+        Inverse logarithmic function used to calculate the sustain
+        and decay of the note.
 
         Parameters
         ----------
@@ -383,7 +389,7 @@ class Functions():
         if t0 == 0:
             raise ValueError('t0 must not be 0')
 
-        invlog = np.log10((-9*t/t0)+10) #error
+        invlog = np.log10((-9*t/t0)+10)
         invlog[t>=t0] = 0
 
         return invlog
@@ -458,4 +464,3 @@ class Functions():
         invhalfcos = 1 - ((np.cos(math.pi*t/ 2*t0)) / 2) 
 
         return invhalfcos
-

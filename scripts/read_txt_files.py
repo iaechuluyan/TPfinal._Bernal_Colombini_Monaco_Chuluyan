@@ -4,8 +4,8 @@ from sorting import sorting_harmonics, sorting_notes
 
 def music_sheet (file):
     '''
-    Returns a list of lists with the starting time, the frequency and the lasting time of all the notes from
-    the sheet file.
+    Returns a list of lists with the starting time, the frequency and the
+    lasting time of all the notes from the sheet file.
 
     Parameters
     ----------
@@ -30,17 +30,10 @@ def music_sheet (file):
             
 
             starts = float(info[0])
+            
+            note = get_frequency(info[1])
 
-            if info[1] == '(None,': #mmmmm
-                note = 0
-
-            else:
-                note = get_frequency(info[1])
-
-            if info[1] == '(None,':
-                duration = float(info[3]) #mmmmm
-            else:
-                duration = float(info[2])
+            duration = float(info[2])
             
             line_info.append([starts, note, duration])
 
@@ -79,8 +72,9 @@ def get_frequency (note):
 
 def harmonics_info (file):
     '''
-    Returns two lists, one with the information of each harmonic read in a file and another one with
-    the information of which functions to use (along with it's arguments) for attack, sustain, and decay.
+    Returns two lists, one with the information of each harmonic read in
+    a file and another one with the information of which functions to use
+    (along with it's arguments) for attack, sustain, and decay.
 
     Parameters
     ----------

@@ -21,7 +21,7 @@ class TestHarmonicsInfo(unittest.TestCase):
     
     def test_float_argument(self):
         arg1 = 10.10
-        self.assertRaises(ValueError,harmonics_info,arg1)
+        self.assertRaises(TypeError,harmonics_info,arg1)
 
     def test_list(self):
         test1 = harmonics_info("test_file_harmonics.txt")

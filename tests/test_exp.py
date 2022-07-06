@@ -9,7 +9,7 @@ class TestExp(unittest.TestCase):
         arg1 = np.array([])
         arg2 = 2
         arg3 = np.array([1,2,3])
-        self.assertRaises(ValueError,object_test.exp,arg1,arg2) #rari!!!
+        self.assertRaises(ValueError,object_test.exp,arg1,arg2)
         self.assertRaises(TypeError,object_test.exp,arg3,arg1)
 
     def test_none_argument(self):
